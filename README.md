@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# React Guest List Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Functionalities
+
+- Creating a guest: separately enter the first name and the last name into the input fields
+- Adding a guest to the giest list
+- Deleting a guest from the guest list: click the button "Remove"
+- Setting a guest as "attending": click the checkbox to confirm that the guest is coming to the event
 
 ## Available Scripts
 
