@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function App() {
   const baseUrl = 'http://localhost:4000';
@@ -80,56 +80,62 @@ export default function App() {
   }
 
   return (
-    <div data-test-id="guest">
-      <h1> My Birthday's party Guest List</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <input
-          value={firstName}
-          onChange={(e) => setFirstName(e.currentTarget.value)}
-          disabled={isLoading}
-          required
-          placeholder="Enter the first name"
-        />
-        <input
-          value={lastName}
-          required
-          disabled={isLoading}
-          onChange={(e) => setLastName(e.currentTarget.value)}
-          placeholder="Enter the last name"
-        />
-        <button
-          onClick={() => {
-            addGuest().catch(() => {});
+    <body>
+      <div data-test-id="guest" className="mainDiv">
+        <h1> My Birthday Party Guest List</h1>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
           }}
         >
-          Register
-        </button>
-      </form>
+          <label>
+            First Name
+            <input
+              value={firstName}
+              onChange={(e) => setFirstName(e.currentTarget.value)}
+              disabled={isLoading}
+              required
+            />
+          </label>
+          <label>
+            Last Name
+            <input
+              value={lastName}
+              required
+              disabled={isLoading}
+              onChange={(e) => setLastName(e.currentTarget.value)}
+            />
+          </label>
+          <button
+            onClick={() => {
+              addGuest().catch(() => {});
+            }}
+          >
+            Register
+          </button>
+        </form>
 
-      {allGuests.map((guest) => {
-        return (
-          <div key={`guests-${guest.id}`}>
-            <div data-test-id="guest">
-              {guest.firstName} {guest.lastName}
-              <input
-                aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
-                type="checkbox"
-                checked={guest.attending}
-                onChange={() => {
-                  toogleAttendence(guest.id, guest.attending).catch((error) =>
-                    console.log(error),
-                  );
-                }}
-              />
-              <button onClick={() => deleteGuest(guest.id)}>Remove</button>
+        {allGuests.map((guest) => {
+          return (
+            <div key={`guests-${guest.id}`}>
+              <div data-test-id="guest">
+                {guest.firstName} {guest.lastName}
+                <input
+                  aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
+                  type="checkbox"
+                  checked={guest.attending}
+                  onChange={() => {
+                    toogleAttendence(guest.id, guest.attending).catch((error) =>
+                      console.log(error),
+                    );
+                  }}
+                />
+                <button onClick={() => deleteGuest(guest.id)}>Remove</button>
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+    </body>
   );
 }
