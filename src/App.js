@@ -130,7 +130,12 @@ export default function App() {
                   );
                 }}
               />
-              <button onClick={() => deleteGuest(guest.id)}>Remove</button>
+              <button
+                aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
+                onClick={() => deleteGuest(guest.id)}
+              >
+                Remove
+              </button>
             </div>
           </div>
         );
