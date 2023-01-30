@@ -33,9 +33,8 @@ export default function App() {
       }),
     });
     const createdGuest = await response.json();
-
-    setAllGuests([...allGuests, createdGuest]);
     setRefetch(!refetch);
+    setAllGuests([...allGuests, createdGuest]);
     setFirstName('');
     setLastName('');
   };
@@ -49,8 +48,8 @@ export default function App() {
     const newGuestList = allGuests.filter((guest) => {
       return guest.id !== deletedGuest.id;
     });
-    setAllGuests(newGuestList);
     setRefetch(!refetch);
+    setAllGuests(newGuestList);
   }
 
   // toogle attendence
@@ -67,6 +66,7 @@ export default function App() {
     allGuests.filter((guests) => {
       return guests.id !== updatedGuest.id;
     });
+    setRefetch(!refetch);
     setAllGuests([allGuests], newUpdatedList);
   }
 
