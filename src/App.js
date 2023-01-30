@@ -2,7 +2,8 @@ import './App.css';
 import { useEffect, useState } from 'react';
 
 export default function App() {
-  const baseUrl = 'http://localhost:4000';
+  const baseUrl =
+    'https://express-guest-list-api-memory-data-store.anadelic.repl.co';
 
   const [allGuests, setAllGuests] = useState([]);
   const [firstName, setFirstName] = useState('');
