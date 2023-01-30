@@ -81,7 +81,7 @@ export default function App() {
   }
 
   return (
-    <div data-test-id="guest" className="mainDiv">
+    <div className="mainDiv">
       <h1> My Birthday Party Guest List</h1>
       <form
         onSubmit={(e) => {
@@ -117,7 +117,7 @@ export default function App() {
 
       {allGuests.map((guest) => {
         return (
-          <div key={`guests-${guest.id}`}>
+          <div data-test-id="guest" key={`guests-${guest.id}`}>
             <div>
               {guest.firstName} {guest.lastName}
               <input
@@ -130,13 +130,13 @@ export default function App() {
                   );
                 }}
               />
-              <button
-                aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
-                onClick={() => deleteGuest(guest.id)}
-              >
-                Remove
-              </button>
             </div>
+            <button
+              aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
+              onClick={() => deleteGuest(guest.id)}
+            >
+              Remove
+            </button>
           </div>
         );
       })}
