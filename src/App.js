@@ -1,12 +1,12 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function App() {
   const baseUrl = 'http://localhost:4000';
 
   const [allGuests, setAllGuests] = useState([]);
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [refetch, setRefetch] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,8 +18,9 @@ export default function App() {
     setAllGuests(guests);
     setIsLoading(false);
   }
-  // adding new guests
-  const addGuest = async function (event) {
+
+  // adding a guest
+  const addGuest = async function () {
     const response = await fetch(`${baseUrl}/guests`, {
       method: 'POST',
       headers: {
@@ -91,12 +92,14 @@ export default function App() {
           onChange={(e) => setFirstName(e.currentTarget.value)}
           disabled={isLoading}
           required
+          placeholder="Enter the first name"
         />
         <input
           value={lastName}
           required
           disabled={isLoading}
           onChange={(e) => setLastName(e.currentTarget.value)}
+          placeholder="Enter the last name"
         />
         <button
           onClick={() => {
