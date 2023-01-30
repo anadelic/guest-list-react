@@ -81,62 +81,60 @@ export default function App() {
   }
 
   return (
-    <body>
-      <div data-test-id="guest" className="mainDiv">
-        <h1> My Birthday Party Guest List</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
+    <div data-test-id="guest" className="mainDiv">
+      <h1> My Birthday Party Guest List</h1>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
+        <label>
+          First name
+          <input
+            value={firstName}
+            onChange={(e) => setFirstName(e.currentTarget.value)}
+            disabled={isLoading}
+            required
+          />
+        </label>
+        <label>
+          Last name
+          <input
+            value={lastName}
+            required
+            disabled={isLoading}
+            onChange={(e) => setLastName(e.currentTarget.value)}
+          />
+        </label>
+        <button
+          onClick={() => {
+            addGuest().catch(() => {});
           }}
         >
-          <label>
-            First Name
-            <input
-              value={firstName}
-              onChange={(e) => setFirstName(e.currentTarget.value)}
-              disabled={isLoading}
-              required
-            />
-          </label>
-          <label>
-            Last Name
-            <input
-              value={lastName}
-              required
-              disabled={isLoading}
-              onChange={(e) => setLastName(e.currentTarget.value)}
-            />
-          </label>
-          <button
-            onClick={() => {
-              addGuest().catch(() => {});
-            }}
-          >
-            Register
-          </button>
-        </form>
+          Register
+        </button>
+      </form>
 
-        {allGuests.map((guest) => {
-          return (
-            <div key={`guests-${guest.id}`}>
-              <div data-test-id="guest">
-                {guest.firstName} {guest.lastName}
-                <input
-                  aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
-                  type="checkbox"
-                  checked={guest.attending}
-                  onChange={() => {
-                    toogleAttendence(guest.id, guest.attending).catch((error) =>
-                      console.log(error),
-                    );
-                  }}
-                />
-                <button onClick={() => deleteGuest(guest.id)}>Remove</button>
-              </div>
+      {allGuests.map((guest) => {
+        return (
+          <div key={`guests-${guest.id}`}>
+            <div data-test-id="guest">
+              {guest.firstName} {guest.lastName}
+              <input
+                aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
+                type="checkbox"
+                checked={guest.attending}
+                onChange={() => {
+                  toogleAttendence(guest.id, guest.attending).catch((error) =>
+                    console.log(error),
+                  );
+                }}
+              />
+              <button onClick={() => deleteGuest(guest.id)}>Remove</button>
             </div>
-          );
-        })}
-      </div>
-    </body>
+          </div>
+        );
+      })}
+    </div>
   );
 }
