@@ -118,7 +118,7 @@ export default function App() {
       {allGuests.map((guest) => {
         return (
           <div key={`guests-${guest.id}`}>
-            <div data-test-id="guest">
+            <div>
               {guest.firstName} {guest.lastName}
               <input
                 aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
