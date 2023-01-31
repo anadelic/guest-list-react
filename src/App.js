@@ -62,11 +62,11 @@ export default function App() {
       body: JSON.stringify({ attending: !attending }),
     });
     const updatedGuest = await response.json();
-    const newUpdatedList = allGuests.filter((guest) => {
+    allGuests.filter((guest) => {
       return guest.id !== updatedGuest.id;
     });
 
-    setAllGuests([allGuests], newUpdatedList);
+    setAllGuests([allGuests], setRefetch(!refetch));
   }
 
   useEffect(() => {
@@ -116,20 +116,20 @@ export default function App() {
 
       {allGuests.map((guest) => {
         return (
-          <div data-test-id="guest" key={`guests-${guest.id}`}>
-            <p>
+          <div key={`guests-${guest.id}`} data-test-id="guest">
+            <div>
               {guest.firstName} {guest.lastName}
-            </p>
-            <input
-              aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
-              type="checkbox"
-              checked={guest.attending}
-              onChange={() => {
-                toogleAttendence(guest.id, guest.attending).catch((error) =>
-                  console.log(error),
-                );
-              }}
-            />
+              <input
+                aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
+                type="checkbox"
+                checked={guest.attending}
+                onChange={() => {
+                  toogleAttendence(guest.id, guest.attending).catch((error) =>
+                    console.log(error),
+                  );
+                }}
+              />{' '}
+            </div>
             <button
               aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
               onClick={() => deleteGuest(guest.id)}
