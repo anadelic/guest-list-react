@@ -53,18 +53,20 @@ export default function App() {
   }
 
   // toogle attendence
-  async function toogleAttendence(id) {
-    const newGuestList = [...allGuests];
-    const guest = newGuestList.find((guests) => guests.id === id);
-    guest.attending = !guest.attending;
-    setAllGuests(newGuestList);
-    await fetch(`${baseUrl}/guests/${id}`, {
+  async function toogleAttendence(id, attending) {
+    const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ attending: false }),
+      body: JSON.stringify({ attending: !attending }),
     });
+    const updatedGuest = await response.json();
+    const newUpdatedList = allGuests.filter((guest) => {
+      return guest.id !== updatedGuest.id;
+    });
+
+    setAllGuests([allGuests], newUpdatedList);
   }
 
   useEffect(() => {
@@ -116,17 +118,19 @@ export default function App() {
         return (
           <div data-test-id="guest" key={`guests-${guest.id}`}>
             <div>
-              {guest.firstName} {guest.lastName}
-              <input
-                aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
-                type="checkbox"
-                onChange={() => {
-                  toogleAttendence(guest.id).catch((error) =>
-                    console.log(error),
-                  );
-                }}
-              />{' '}
+              {guest.firstName} {guest.lastName}{' '}
             </div>
+            <input
+              aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
+              type="checkbox"
+              checked={guest.attending}
+              onChange={() => {
+                toogleAttendence(guest.id, guest.attending).catch((error) =>
+                  console.log(error),
+                );
+              }}
+            />
+
             <button
               aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
               onClick={() => deleteGuest(guest.id)}
