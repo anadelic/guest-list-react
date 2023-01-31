@@ -63,7 +63,7 @@ export default function App() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ attending: true }),
+      body: JSON.stringify({ attending: false }),
     });
   }
 
@@ -117,14 +117,16 @@ export default function App() {
           <div data-test-id="guest" key={`guests-${guest.id}`}>
             <div>
               {guest.firstName} {guest.lastName}
+              <input
+                aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
+                type="checkbox"
+                onChange={() => {
+                  toogleAttendence(guest.id).catch((error) =>
+                    console.log(error),
+                  );
+                }}
+              />{' '}
             </div>
-            <input
-              aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
-              type="checkbox"
-              onChange={() => {
-                toogleAttendence(guest.id).catch((error) => console.log(error));
-              }}
-            />
             <button
               aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
               onClick={() => deleteGuest(guest.id)}
