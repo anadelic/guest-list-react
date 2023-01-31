@@ -121,11 +121,8 @@ export default function App() {
             <input
               aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
               type="checkbox"
-              checked={guest.attending}
               onChange={() => {
-                toogleAttendence(guest.id, guest.attending).catch((error) =>
-                  console.log(error),
-                );
+                toogleAttendence(guest.id).catch((error) => console.log(error));
               }}
             />
             <button
