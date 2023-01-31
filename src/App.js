@@ -117,9 +117,7 @@ export default function App() {
       {allGuests.map((guest) => {
         return (
           <div data-test-id="guest" key={`guests-${guest.id}`}>
-            <div>
-              {guest.firstName} {guest.lastName}{' '}
-            </div>
+            {guest.firstName} {guest.lastName}{' '}
             <input
               aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
               type="checkbox"
@@ -130,7 +128,6 @@ export default function App() {
                 );
               }}
             />
-
             <button
               aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
               onClick={() => deleteGuest(guest.id)}
