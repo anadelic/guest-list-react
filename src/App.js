@@ -8,7 +8,7 @@ export default function App() {
   const [allGuests, setAllGuests] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [refetch, setRefetch] = useState();
+  const [refetch, setRefetch] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
   // getting all guests
@@ -33,10 +33,10 @@ export default function App() {
       }),
     });
     const createdGuest = await response.json();
-    setRefetch(!refetch);
     setAllGuests([...allGuests, createdGuest]);
     setFirstName('');
     setLastName('');
+    setRefetch(!refetch);
   };
 
   // deleting a guest
@@ -48,8 +48,8 @@ export default function App() {
     const newGuestList = allGuests.filter((guest) => {
       return guest.id !== deletedGuest.id;
     });
-    setRefetch(!refetch);
     setAllGuests(newGuestList);
+    setRefetch(!refetch);
   }
 
   // toogle attendence
@@ -62,12 +62,11 @@ export default function App() {
       body: JSON.stringify({ attending: !attending }),
     });
     const updatedGuest = await response.json();
-    const newUpdatedList = setRefetch(!refetch);
-    allGuests.filter((guests) => {
+    const newUpdatedList = allGuests.filter((guests) => {
       return guests.id !== updatedGuest.id;
     });
-    setRefetch(!refetch);
     setAllGuests([allGuests], newUpdatedList);
+    setRefetch(!refetch);
   }
 
   useEffect(() => {
