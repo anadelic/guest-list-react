@@ -117,19 +117,19 @@ export default function App() {
       {allGuests.map((guest) => {
         return (
           <div data-test-id="guest" key={`guests-${guest.id}`}>
-            <div>
+            <p>
               {guest.firstName} {guest.lastName}
-              <input
-                aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
-                type="checkbox"
-                checked={guest.attending}
-                onChange={() => {
-                  toogleAttendence(guest.id, guest.attending).catch((error) =>
-                    console.log(error),
-                  );
-                }}
-              />{' '}
-            </div>
+            </p>
+            <input
+              aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
+              type="checkbox"
+              checked={guest.attending}
+              onChange={() => {
+                toogleAttendence(guest.id, guest.attending).catch((error) =>
+                  console.log(error),
+                );
+              }}
+            />
             <button
               aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
               onClick={() => deleteGuest(guest.id)}
